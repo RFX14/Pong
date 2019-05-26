@@ -12,12 +12,14 @@ public class Game extends JPanel implements ActionListener {
     Main main;
     Ball ball;
     Player player;
+    Player2 player2;
     Score score;
     Timer gamelooptimer;
 
     public Game() {
         main = new Main();
         player = new Player();
+        player2 = new Player2();
         score = new Score();
         ball = new Ball();
 
@@ -27,7 +29,7 @@ public class Game extends JPanel implements ActionListener {
         gamelooptimer.start();
         
         //This actually gets the computer to focus on this and take key inputs
-        addKeyListener(new KeyInput(player));
+        addKeyListener(new KeyInput(player, player2));
     }
 
     @Override
@@ -40,6 +42,7 @@ public class Game extends JPanel implements ActionListener {
         g2d.fillRect(0, 0, main.getXFrame(), main.getYFrame());
 
         player.draw(g2d);
+        player2.draw(g2d);
         ball.draw(g2d);
         score.draw(g2d);
 
@@ -48,9 +51,10 @@ public class Game extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        score.update();
         player.update();
-        ball.update(player);
+        player2.update();
+        ball.update(player, player2);
+        score.update(ball);
         repaint();
     }
 
