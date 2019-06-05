@@ -31,7 +31,7 @@ public class Score {
             scoreTwo++;
             ball.setGoal2(false);
         }
-        System.out.println("\nPlayer1: " + scoreOne);
-        System.out.println("Player2: " + scoreTwo);
+        //System.out.println("\nPlayer1: " + scoreOne);
+        //System.out.println("Player2: " + scoreTwo);
     }
 }

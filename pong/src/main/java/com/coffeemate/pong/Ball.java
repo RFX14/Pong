@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+/**
+ * TODO: Get more accurate physics collisions with the ball
+ */
 
 public class Ball {
     Main main;
@@ -9,6 +12,9 @@ public class Ball {
 
     int xVel = 2;
     int yVel = -2;
+
+    int xAcl = 0;
+    int yAcl = 0;
 
     boolean goal1;
     boolean goal2;
@@ -28,38 +34,62 @@ public class Ball {
     }
 
     public void update(Player player1, Player2 player2) {
+        SoundManager sound = new SoundManager();
         //Ball Physics against walls Reaaallly basic
-        if(yPos == 0) {
+        if(yPos <= 0) {
+            yAcl++;
             yVel = Math.abs(yVel);
+            sound.play(false, true);
         }
-        if(yPos == main.getYFrame() - 46) {
+        if(yPos >= main.getYFrame() - 46) {
+            yAcl = -(yAcl + 1);
             yVel = -yVel;
+            sound.play(false, true);
         }
 
         //Paddle 1 Interaction
-        if(xPos < 35 && xPos > 20 && yPos > player1.getY() && yPos < player1.getY() + 70) {
+        if(xPos <= 35 && xPos >= 20 && yPos > player1.getY() && yPos < player1.getY() + 70) {
+            xAcl = -xAcl + 1;
             xVel = Math.abs(xVel);
+            sound.play(false, true);
         }
 
         //Paddle 2 Interaction
-        if(xPos < 600 && xPos > 585 && yPos > player2.getY() && yPos < player2.getY() + 70) {
+        if(xPos <= 600 && xPos >= 585 && yPos > player2.getY() && yPos < player2.getY() + 70) {
+            xAcl = -(xAcl + 1);
             xVel = -xVel;
+            sound.play(false, true);
         }
 
         //Player1 gets a point
-        if(xPos == 620) {
+        if(xPos >= 620) {
             goal1 = true;
-            xVel = -xVel;
+            xPos = main.getXFrame() / 2;
+            yPos = main.getYFrame() / 2;
+            sound.play(true, false);
         }
 
         //Player2 gets a point
-        if(xPos == 0) {
+        if(xPos <= 0) {
             goal2 = true;
-            xVel = Math.abs(xVel);
+            xPos = main.getXFrame() / 2;
+            yPos = main.getYFrame() / 2;
+            sound.play(true, false);
         }
 
-        xPos += xVel;
-        yPos += yVel;
+        //Resets all ball properties when there's a goal
+        if(goal1 || goal2) {
+            xVel = (int) (Math.random() * 2) + 1;
+            yVel = (int) (Math.random() * 2);
+            xAcl = 0;
+            yAcl = 0;
+        }
+
+        xPos += (xVel + xAcl);
+        yPos += (yVel + yAcl);
+
+        //System.out.println("\nxVel: " + xVel);
+        //System.out.println("xAcl: " + xAcl);
     }
 
     public boolean getGoal1() {
