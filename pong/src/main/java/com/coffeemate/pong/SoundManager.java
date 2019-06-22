@@ -1,6 +1,4 @@
-import java.io.File;
 import java.util.ArrayList;
-
 import javax.sound.sampled.*;
 public class SoundManager {
 
@@ -18,8 +16,8 @@ public class SoundManager {
     public void play(boolean score, boolean hit) {
         try {
             int randomFile = (int) (Math.random() * 2);
-            AudioInputStream clipHits = AudioSystem.getAudioInputStream(new File(hits.get(randomFile) + ".wav"));
-            AudioInputStream clipScore = AudioSystem.getAudioInputStream(new File(scoreSound + ".wav"));
+            AudioInputStream clipHits = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResource(hits.get(randomFile) + ".wav"));
+            AudioInputStream clipScore = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResource(scoreSound + ".wav"));
 
             Clip clip = AudioSystem.getClip();
 

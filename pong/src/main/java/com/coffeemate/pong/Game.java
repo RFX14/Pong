@@ -4,20 +4,20 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Game extends JPanel implements ActionListener {
-    Main main;
+public class Game extends JPanel implements Runnable, ActionListener {
     Ball ball;
     Player player;
     Player2 player2;
     Score score;
     Timer gamelooptimer;
+    static JFrame frame = new JFrame("Pong!");
 
     public Game() {
-        main = new Main();
+        setLayout(null);
         player = new Player();
         player2 = new Player2();
         score = new Score();
@@ -39,7 +39,7 @@ public class Game extends JPanel implements ActionListener {
 
         //Background
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, main.getXFrame(), main.getYFrame());
+        g2d.fillRect(0, 0, Main.getXFrame(), Main.getYFrame());
 
         player.draw(g2d);
         player2.draw(g2d);
@@ -56,6 +56,15 @@ public class Game extends JPanel implements ActionListener {
         ball.update(player, player2);
         score.update(ball);
         repaint();
+    }
+
+    public void run() {
+        frame.pack();
+        frame.setResizable(false);
+        frame.setSize(Main.getXFrame(), Main.getYFrame());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.add(new Game());
     }
 
 }

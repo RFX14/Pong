@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
  */
 
 public class Ball {
-    Main main;
     Score score;
     int xPos = 0;
     int yPos = 0;
@@ -20,12 +19,11 @@ public class Ball {
     boolean goal2;
 
     public Ball() {
-        main = new Main();
         score = new Score();
         goal1 = false;
         goal2 = false;
-        xPos = main.getXFrame() / 2;
-        yPos = main.getYFrame() / 2;
+        xPos = Main.getXFrame() / 2;
+        yPos = Main.getYFrame() / 2;
     }
 
     public void draw(Graphics2D g2d) {
@@ -41,7 +39,7 @@ public class Ball {
             yVel = Math.abs(yVel);
             sound.play(false, true);
         }
-        if(yPos >= main.getYFrame() - 46) {
+        if(yPos >= Main.getYFrame() - 46) {
             yAcl = -(yAcl + 1);
             yVel = -yVel;
             sound.play(false, true);
@@ -64,16 +62,16 @@ public class Ball {
         //Player1 gets a point
         if(xPos >= 620) {
             goal1 = true;
-            xPos = main.getXFrame() / 2;
-            yPos = main.getYFrame() / 2;
+            xPos = Main.getXFrame() / 2;
+            yPos = Main.getYFrame() / 2;
             sound.play(true, false);
         }
 
         //Player2 gets a point
         if(xPos <= 0) {
             goal2 = true;
-            xPos = main.getXFrame() / 2;
-            yPos = main.getYFrame() / 2;
+            xPos = Main.getXFrame() / 2;
+            yPos = Main.getYFrame() / 2;
             sound.play(true, false);
         }
 

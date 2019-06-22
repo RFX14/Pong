@@ -3,22 +3,20 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 public class Player2 {
-    Main main;
     int xPos = 600;
     int yPos = 10;
     int yVel = 0;
 
     public Player2() {
-        main = new Main();
-        yPos = (main.getYFrame() / 2) - 70;
+        yPos = (Main.getYFrame() / 2) - 70;
     }
 
     public void update() {
         //Sets map bounds
         if(yPos < 0) {
             yPos += Math.abs(yPos);
-        } else if(yPos > main.getYFrame() - 90) {
-            yPos += (main.getYFrame() - 90) - yPos;
+        } else if(yPos > Main.getYFrame() - 90) {
+            yPos += (Main.getYFrame() - 90) - yPos;
         }
 
         yPos += yVel;
