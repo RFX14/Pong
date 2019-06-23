@@ -1,3 +1,7 @@
+import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+
 public class Main {
     static int xSize = 640;
     static int ySize = 480;
@@ -10,14 +14,17 @@ public class Main {
         while(run) {
             if(Menu.getNext().equalsIgnoreCase("game")) {
                 run = false;
-                Thread t2 = new Thread(new Game());
                 Menu.frame.dispose();
+                Thread t2 = new Thread(new Game()); 
                 t2.start();
             } else if(Menu.getNext().equalsIgnoreCase("settings")) {
                 run = false;
                 Thread t3 = new Thread(new Settings());
                 Menu.frame.dispose();
                 t3.start();
+                if(Settings.close) {
+                    run = false;
+                }
             }
         }
     }

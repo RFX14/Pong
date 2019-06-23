@@ -1,11 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 public class Player {
     int xPos = 20;
     int yPos = 10;
     int yVel = 0;
+    Rectangle rect = new Rectangle(xPos, yPos, 15, 70);
 
     public Player() {
         yPos = (Main.getYFrame() / 2) - 70;
@@ -18,6 +20,8 @@ public class Player {
         } else if(yPos > Main.getYFrame() - 90) {
             yPos += (Main.getYFrame() - 90) - yPos;
         }
+        rect.x = xPos;
+        rect.y = yPos;
 
         yPos += yVel;
     }
@@ -55,5 +59,9 @@ public class Player {
 
     public int getY() {
         return yPos;
+    }
+
+    public Rectangle getRect() {
+        return rect;
     }
 }

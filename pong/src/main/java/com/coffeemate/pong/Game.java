@@ -58,13 +58,13 @@ public class Game extends JPanel implements Runnable, ActionListener {
         repaint();
     }
 
+    @Override
     public void run() {
         frame.pack();
         frame.setResizable(false);
         frame.setSize(Main.getXFrame(), Main.getYFrame());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.add(new Game());
+        frame.add(this);
     }
-
 }
